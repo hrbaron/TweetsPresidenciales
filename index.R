@@ -1,15 +1,15 @@
 ##APP1 EJEMPLO TWITTER REST
-install.packages("ggplot2")
-install.packages("ggmap")
-install.packages("shiny")
-install.packages("shinyWidgets")
-install.packages("RCurl") 
-install.packages("ROAuth")
-install.packages("RJSONIO")
-install.packages("leaflet")
+#install.packages("ggplot2")
+#install.packages("ggmap")
+#install.packages("shiny")
+#install.packages("shinyWidgets")
+#install.packages("RCurl") 
+#install.packages("ROAuth")
+#install.packages("RJSONIO")
+#install.packages("leaflet")
 install.packages("streamR")
-install.packages("tm")
-install.packages("SnowballC")
+#install.packages("tm")
+#install.packages("SnowballC")
 
 library(ggplot2)
 library(ggmap)
@@ -92,14 +92,6 @@ shinyApp(
       
     })
     
-    # Create a reactive leaflet map
-    mapTweets <- reactive({
-      map = leaflet() %>% addTiles() %>%
-        addMarkers(as.numeric(input$long), as.numeric(input$lat), popup = input$filtro) %>%
-        setView(input$long, input$lat, zoom = 11)
-    })
-    output$myMap = renderLeaflet(mapTweets())
-    
     # Create a reactive table 
     output$table <- DT::renderDataTable(
       colnames = c('Registro','Tweet',"Sentimiento"), 
@@ -115,8 +107,20 @@ shinyApp(
         # Carga los tweets en fomato .JSON a un dataset de Rstudio
         json_candidatos<- parseTweets(tweets='tweets_candidatos.json', simplify = FALSE)
         texto=json_candidatos$text
-        #coordenadas <- json_candidatos$coordinates
-        #cat(coordenadas)
+        
+        json_coordenadas<- fromJSON(file='tweets_candidatos.json')
+        coordenadas = json_coordenadas$place$bounding_box$coordinates[[1]][1][[1]]
+        longitud=coordenadas[1]
+        latitud=coordenadas[2]
+        
+        # Create a reactive leaflet map
+        mapTweets <- reactive({
+          map = leaflet() %>% addTiles() %>%
+            addMarkers(as.numeric(longitud), as.numeric(latitud), popup = dataInput()$screenName) %>%
+            setView(input$long, input$lat, zoom = 11)
+        })
+        
+        output$myMap = renderLeaflet(mapTweets())
         # -------------------------------
         # Pre-procesamiento de los datos 
         # -------------------------------
@@ -140,9 +144,9 @@ shinyApp(
         # Convierte mayusculas a minusculas
         limpia_texto = tolower(limpia_texto)
         # Elimina palabras vacias (Stopwords)
-        limpia_texto <- removeWords(limpia_texto, words = stopwords("spanish"))
+        #limpia_texto <- removeWords(limpia_texto, words = stopwords("spanish"))
         # Aplicacion de Stemming: Principalmente recorta las palabras a su raiz
-        limpia_texto <- stemDocument (limpia_texto, language = "spanish") 
+        #limpia_texto <- stemDocument (limpia_texto, language = "spanish") 
         #head( limpia_texto, n = input$cantidadTweets )
         cantidadTweets <-1:length(limpia_texto)
         
@@ -170,7 +174,7 @@ shinyApp(
         
         
         result = as.matrix(cbind(cantidadTweets, limpia_texto,sentimientos_tweets)) 
-
+        
         data <- result
       }
     )
