@@ -23,7 +23,8 @@ library(streamR)
 library(tm)
 library(SnowballC)
 
-setwd("C:/Users/cgordillo/OneDrive - Asesoftware S.A.S/BKASW/Documentos/Cesar/Twitter/")
+setwd("D:/Universidad/Diplomado/Rstudio/")
+#setwd("C:/Users/cgordillo/OneDrive - Asesoftware S.A.S/BKASW/Documentos/Cesar/Twitter/")
 shinyApp(
   ui <- pageWithSidebar(
     #Titulo de la App
@@ -108,17 +109,34 @@ shinyApp(
         json_candidatos<- parseTweets(tweets='tweets_candidatos.json', simplify = FALSE)
         texto=json_candidatos$text
         
-        json_coordenadas<- fromJSON(file='tweets_candidatos.json')
-        coordenadas = json_coordenadas$place$bounding_box$coordinates[[1]][1][[1]]
-        longitud=coordenadas[1]
-        latitud=coordenadas[2]
-        
+
+        #IMPRIMIR MARCADORES SEGÚN EL JSON GENERADO
+        json_txt <- readLines(paste0("D:/Universidad/Diplomado/Rstudio/",
+                                     "tweets_candidatos.json"), warn=FALSE)
+        latitudes <- vector()
+        longitudes <- vector()
+        for (posicion in 1:length(json_txt)){
+          if (is.null(json_txt[posicion]) || json_txt[posicion] !='')
+          {
+            json <- fromJSON(json_txt[posicion])
+            if (!is.null(json)) { 
+              if(!is.null(json$place) && !is.null(json$place$bounding_box) 
+                 && !is.null(json$place$bounding_box$coordinates))
+              {
+                coordenadas = json$place$bounding_box$coordinates[[1]][1][[1]]
+                longitudes <- c(longitudes, coordenadas[1])
+                latitudes<- c(latitudes, coordenadas[2])
+              }
+            }
+          }
+        }
         # Create a reactive leaflet map
         mapTweets <- reactive({
           map = leaflet() %>% addTiles() %>%
-            addMarkers(as.numeric(longitud), as.numeric(latitud), popup = dataInput()$screenName) %>%
+            addMarkers(c(longitudes), c(latitudes), popup = dataInput()$screenName) %>%
             setView(input$long, input$lat, zoom = 11)
         })
+
         
         output$myMap = renderLeaflet(mapTweets())
         # -------------------------------
