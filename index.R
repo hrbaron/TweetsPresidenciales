@@ -1,4 +1,4 @@
-##APP1 EJEMPLO TWITTER REST
+##APP1  TWITTER STREAM
 #install.packages("ggplot2")
 #install.packages("ggmap")
 #install.packages("shiny")
@@ -10,7 +10,7 @@
 install.packages("streamR")
 #install.packages("tm")
 #install.packages("SnowballC")
-
+#install.packages("DT")
 library(ggplot2)
 library(ggmap)
 library(shiny)
@@ -22,9 +22,11 @@ library(leaflet)
 library(streamR)
 library(tm)
 library(SnowballC)
+library(DT)
 
-setwd("D:/Universidad/Diplomado/Rstudio/")
-#setwd("C:/Users/cgordillo/OneDrive - Asesoftware S.A.S/BKASW/Documentos/Cesar/Twitter/")
+ruta <-"C:/Users/hbaronfr/Desktop/CONEXION/"
+setwd(ruta) 
+#setwd("C:/Users/cgordillo/OneDrive - Asesooftware S.A.S/BKASW/Documentos/Cesar/Twitter/")
 shinyApp(
   ui <- pageWithSidebar(
     #Titulo de la App
@@ -34,7 +36,7 @@ shinyApp(
     sidebarPanel(
       
       #Input: Selector de la variable a visualizar
-      textInput("filtro", label = "Busqueda:", value = "@petro"),
+      textInput("filtro", label = "Busqueda:", value = "@petrogustavo"),
       
       #Input: Selector de la variable a visualizar
       textInput("lat", label = "Latitud:", value = 4.57),
@@ -43,8 +45,8 @@ shinyApp(
       textInput("long", label = "Longitud:", value = -74.29),
       
       chooseSliderSkin("Modern"),
-      sliderInput("cantidadTweets", "Cantidad de tweets:",
-                  min = 1, max =1000, value = 50)
+      sliderInput("tiempoGeneracion", "Tiempo procesamiento (Segundos)",
+                  min = 10, max =3000, value = 20)
     ),     
     
     #Crear mainPanel que visualiza resultados
@@ -98,52 +100,39 @@ shinyApp(
       colnames = c('Registro','Tweet',"Sentimiento"), 
       options = list(pageLength = 10),
       {
-        filterStream(file.name="tweets_candidatos.json",
+        filterStream(file.name="tweets_candi.json",
                      locations = c(input$long, input$lat, -73.39, 5.57), 
                      track= c(input$filtro), oauth=my_oauth, 
-                     timeout= 20, 
-                     tweets = input$cantidadTweets,
+                     timeout = input$tiempoGeneracion,
                      lang="es")
         
         # Carga los tweets en fomato .JSON a un dataset de Rstudio
-        json_candidatos<- parseTweets(tweets='tweets_candidatos.json', simplify = FALSE)
+        json_candidatos<- parseTweets(tweets='tweets_candi.json', simplify = FALSE)
         texto=json_candidatos$text
         
-
         #IMPRIMIR MARCADORES SEGÚN EL JSON GENERADO
-        json_txt <- readLines(paste0("D:/Universidad/Diplomado/Rstudio/",
-                                     "tweets_candidatos.json"), warn=FALSE)
-        latitudes <- vector()
-        longitudes <- vector()
-        for (posicion in 1:length(json_txt)){
-          if (is.null(json_txt[posicion]) || json_txt[posicion] !='')
-          {
-            json <- fromJSON(json_txt[posicion])
-            if (!is.null(json)) { 
-              if(!is.null(json$place) && !is.null(json$place$bounding_box) 
-                 && !is.null(json$place$bounding_box$coordinates))
-              {
-                coordenadas = json$place$bounding_box$coordinates[[1]][1][[1]]
-                longitudes <- c(longitudes, coordenadas[1])
-                latitudes<- c(latitudes, coordenadas[2])
-              }
-            }
-          }
-        }
+        json_txt <- readLines(paste0("C:/Users/hbaronfr/Desktop/CONEXION/",
+                                     "tweets_candi.json"), warn=FALSE)
+        
+        latitudes <- c(json_candidatos$place_lat)
+        longitudes <- c(json_candidatos$place_lon)
+        latitudes <- latitudes[latitudes!= "NaN"]
+        longitudes <- longitudes[longitudes!= "NaN"]
+        
         # Create a reactive leaflet map
         mapTweets <- reactive({
           map = leaflet() %>% addTiles() %>%
             addMarkers(c(longitudes), c(latitudes), popup = dataInput()$screenName) %>%
             setView(input$long, input$lat, zoom = 11)
         })
-
+        
         
         output$myMap = renderLeaflet(mapTweets())
         # -------------------------------
         # Pre-procesamiento de los datos 
         # -------------------------------
-        
         # Elimina retweets
+        unique(texto)
         limpia_texto = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", "", texto)
         # Elimina puntuacion
         limpia_texto = gsub("[[:punct:]]", "", limpia_texto)
@@ -161,10 +150,11 @@ shinyApp(
         limpia_texto = gsub('<.*>', '', enc2native(limpia_texto))
         # Convierte mayusculas a minusculas
         limpia_texto = tolower(limpia_texto)
+        
         # Elimina palabras vacias (Stopwords)
-        #limpia_texto <- removeWords(limpia_texto, words = stopwords("spanish"))
+        limpia_texto <- removeWords(limpia_texto, words = stopwords("spanish"))
         # Aplicacion de Stemming: Principalmente recorta las palabras a su raiz
-        #limpia_texto <- stemDocument (limpia_texto, language = "spanish") 
+        limpia_texto <- stemDocument (limpia_texto, language = "spanish") 
         #head( limpia_texto, n = input$cantidadTweets )
         cantidadTweets <-1:length(limpia_texto)
         
