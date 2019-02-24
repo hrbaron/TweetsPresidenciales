@@ -24,8 +24,15 @@ library(tm)
 library(SnowballC)
 library(DT)
 
-ruta <-"C:/Users/hbaronfr/Desktop/CONEXION/"
+#ruta <-"C:/Users/hbaronfr/Desktop/CONEXION/"
+ruta <-"D:/Universidad/Diplomado/Rstudio/"
 setwd(ruta) 
+candidatos <-read.csv("candidatos_presidente.csv",sep = ",",
+                      stringsAsFactors = F)
+#Se crea el dataFrame
+dfCandidatos <-data.frame(candidatos)
+candidatosPresi <-unique(dfCandidatos$Nombre)
+candidatosPresi <-candidatosPresi[order(candidatosPresi,decreasing=F)]
 #setwd("C:/Users/cgordillo/OneDrive - Asesooftware S.A.S/BKASW/Documentos/Cesar/Twitter/")
 shinyApp(
   ui <- pageWithSidebar(
@@ -36,7 +43,8 @@ shinyApp(
     sidebarPanel(
       
       #Input: Selector de la variable a visualizar
-      textInput("filtro", label = "Busqueda:", value = "@petrogustavo"),
+      selectInput("candidato","Candidato: ",
+                  candidatosPresi),
       
       #Input: Selector de la variable a visualizar
       textInput("lat", label = "Latitud:", value = 4.57),
@@ -52,16 +60,22 @@ shinyApp(
     #Crear mainPanel que visualiza resultados
     mainPanel(
       
-      #Salida uno ---> Texto
-      h2(textOutput("encabezado")),
-      #Salida dos ---> Mapa
-      leafletOutput("myMap"),
-      #Salida tres ---> Texto
-      h3(textOutput("twwts")),
-      #Salida cuatro ---> Tabla
-      DT::dataTableOutput('table'),
+      tabsetPanel(type = "tabs",
+                  tabPanel("Mapa", h2(textOutput("encabezado")),
+                                      leafletOutput("myMap")),
+                  tabPanel("Tabla", h3(textOutput("twwts")),
+                           DT::dataTableOutput('table')),
+                  tabPanel("Graficas", plotOutput("histograma"))
+      )
       
-      plotOutput("histograma")
+      #Salida uno ---> Texto
+      #),
+      #Salida dos ---> Mapa
+      #Salida tres ---> Texto
+      #,
+      #Salida cuatro ---> Tabla
+      
+      
     )
   ),
   
@@ -91,43 +105,51 @@ shinyApp(
     
     
     # Issue search query to Twitter
-    dataInput <- reactive({  
+    observe({
+      usuario_twitter <-paste("@",
+                              dfCandidatos$Usuario_twitter[dfCandidatos$Nombre ==input$candidato])
+      usuario_twitter <-gsub(" ", "", usuario_twitter)
+      cat(usuario_twitter)
+      cat(" ")
+      filterStream(file.name="tweets_candi.json",
+                   locations = c(input$long, input$lat, -73.39, 5.57), 
+                   track= c(usuario_twitter), oauth=my_oauth, 
+                   timeout = input$tiempoGeneracion,
+                   lang="es")
       
-    })
+      json_candidatos<- parseTweets(tweets='tweets_candi.json', simplify = FALSE)
+      texto=json_candidatos$text
+      
+      #IMPRIMIR MARCADORES SEGÚN EL JSON GENERADO
+      json_txt <- readLines(paste0("D:/Universidad/Diplomado/Rstudio/",
+                                   "tweets_candi.json"), warn=FALSE)
+      
+      latitudes <- c(json_candidatos$place_lat)
+      longitudes <- c(json_candidatos$place_lon)
+      latitudes <- latitudes[latitudes!= "NaN"]
+      longitudes <- longitudes[longitudes!= "NaN"]
+      
+      # Create a reactive leaflet map
+      mapTweets <- reactive({
+        map = leaflet() %>% addTiles() %>%
+          addMarkers(c(longitudes), c(latitudes), popup = "test") %>%
+          setView(input$long, input$lat, zoom = 11)
+      })
+      
+      
+      output$myMap = renderLeaflet(mapTweets())
+    }) 
+      
     
     # Create a reactive table 
     output$table <- DT::renderDataTable(
       colnames = c('Registro','Tweet',"Sentimiento"), 
       options = list(pageLength = 10),
       {
-        filterStream(file.name="tweets_candi.json",
-                     locations = c(input$long, input$lat, -73.39, 5.57), 
-                     track= c(input$filtro), oauth=my_oauth, 
-                     timeout = input$tiempoGeneracion,
-                     lang="es")
-        
         # Carga los tweets en fomato .JSON a un dataset de Rstudio
         json_candidatos<- parseTweets(tweets='tweets_candi.json', simplify = FALSE)
         texto=json_candidatos$text
         
-        #IMPRIMIR MARCADORES SEGÚN EL JSON GENERADO
-        json_txt <- readLines(paste0("C:/Users/hbaronfr/Desktop/CONEXION/",
-                                     "tweets_candi.json"), warn=FALSE)
-        
-        latitudes <- c(json_candidatos$place_lat)
-        longitudes <- c(json_candidatos$place_lon)
-        latitudes <- latitudes[latitudes!= "NaN"]
-        longitudes <- longitudes[longitudes!= "NaN"]
-        
-        # Create a reactive leaflet map
-        mapTweets <- reactive({
-          map = leaflet() %>% addTiles() %>%
-            addMarkers(c(longitudes), c(latitudes), popup = dataInput()$screenName) %>%
-            setView(input$long, input$lat, zoom = 11)
-        })
-        
-        
-        output$myMap = renderLeaflet(mapTweets())
         # -------------------------------
         # Pre-procesamiento de los datos 
         # -------------------------------
@@ -188,11 +210,11 @@ shinyApp(
     )
     
     output$twwts<- renderText({
-      paste("Consolidado de Tweets para ",input$filtro)
+      paste("Consolidado de Tweets para ",input$candidato)
     })
     
     output$encabezado<- renderText({
-      paste("Ubicacion de Tweets para ",input$filtro)
+      paste("Ubicacion de Tweets para ",input$candidato)
     })
     
   }
