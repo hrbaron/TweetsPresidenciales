@@ -70,7 +70,7 @@ shinyApp(
       
       chooseSliderSkin("Modern"),
       sliderInput("tiempoGeneracion", "Tiempo procesamiento (Segundos)",
-                  min = 10, max =3000, value = 20)
+                  min = 10, max =3000, value = 30)
     ),     
     
     #Crear mainPanel que visualiza resultados
@@ -133,18 +133,24 @@ shinyApp(
           usuario_twitter <-paste("@",
                                   dfCandidatos$Usuario_twitter[dfCandidatos$Nombre ==input$candidato])
           usuario_twitter <-gsub(" ", "", usuario_twitter)
-          filterStream(file.name="tweets_candi.json",
+          cat(usuario_twitter)
+          if (file.exists("tweets_candidatos.json")) 
+          {
+            cat("eliminar archivo json")
+            file.remove("tweets_candidatos.json")
+          }
+          filterStream(file.name="tweets_candidatos.json",
                        locations = c(input$long, input$lat, -73.39, 5.57), 
                        track= c(usuario_twitter), oauth=my_oauth, 
                        timeout = input$tiempoGeneracion,
                        lang="es")
           
-          json_candidatos<- parseTweets(tweets='tweets_candi.json', simplify = FALSE)
+          json_candidatos<- parseTweets(tweets='tweets_candidatos.json', simplify = FALSE)
           texto=json_candidatos$text
           
           #IMPRIMIR MARCADORES SEGUN EL JSON GENERADO
           json_txt <- readLines(paste0("C:/Tweets_Candidatos/",
-                                       "tweets_candi.json"), warn=FALSE)
+                                       "tweets_candidatos.json"), warn=FALSE)
           
           latitudes <- c(json_candidatos$place_lat)
           longitudes <- c(json_candidatos$place_lon)
@@ -295,7 +301,9 @@ shinyApp(
           table(textoSparse$sentimiento)
           # Clasificacion con modelo SVM; Necesariamente se debe tratar la variable sentimiento como un factor
           # trabaja sobre la base datos de entrenamiento para enseñarle al clasificador
-          SVM<-svm(as.factor(sentimiento)~ ., data=trainSparse)
+          trainSparse$sentimiento<-factor(trainSparse$sentimiento)
+          require(e1071)
+          SVM<-svm(sentimiento~ .,data=trainSparse, kernel = "linear",scale = FALSE)
           # Muestra un resumen del clasificador para observar como esta el modelo, es decir una descripcion del modelo
           summary(SVM)
           # comportamiento del modelo haciendo predicciones, con los nuevos datos
