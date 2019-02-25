@@ -24,8 +24,8 @@ library(tm)
 library(SnowballC)
 library(DT)
 
-#ruta <-"C:/Users/hbaronfr/Desktop/CONEXION/"
-ruta <-"D:/Universidad/Diplomado/Rstudio/"
+ruta <-"C:/Users/hbaronfr/Desktop/CONEXION/"
+#ruta <-"D:/Universidad/Diplomado/Rstudio/"
 setwd(ruta) 
 candidatos <-read.csv("candidatos_presidente.csv",sep = ",",
                       stringsAsFactors = F)
@@ -106,116 +106,124 @@ shinyApp(
     
     # Issue search query to Twitter
     observe({
-      usuario_twitter <-paste("@",
-                              dfCandidatos$Usuario_twitter[dfCandidatos$Nombre ==input$candidato])
-      usuario_twitter <-gsub(" ", "", usuario_twitter)
-      cat(usuario_twitter)
-      cat(" ")
-      filterStream(file.name="tweets_candi.json",
-                   locations = c(input$long, input$lat, -73.39, 5.57), 
-                   track= c(usuario_twitter), oauth=my_oauth, 
-                   timeout = input$tiempoGeneracion,
-                   lang="es")
       
-      json_candidatos<- parseTweets(tweets='tweets_candi.json', simplify = FALSE)
-      texto=json_candidatos$text
+      # Create a reactive table 
+      output$table <- DT::renderDataTable(
+        colnames = c('Registro','Tweet',"Clasificacion Bayes"), 
+        options = list(pageLength = 10),
+        {
+          usuario_twitter <-paste("@",
+                                  dfCandidatos$Usuario_twitter[dfCandidatos$Nombre ==input$candidato])
+          usuario_twitter <-gsub(" ", "", usuario_twitter)
+          filterStream(file.name="tweets_candi.json",
+                       locations = c(input$long, input$lat, -73.39, 5.57), 
+                       track= c(usuario_twitter), oauth=my_oauth, 
+                       timeout = input$tiempoGeneracion,
+                       lang="es")
+          
+          json_candidatos<- parseTweets(tweets='tweets_candi.json', simplify = FALSE)
+          texto=json_candidatos$text
+          
+          #IMPRIMIR MARCADORES SEGUN EL JSON GENERADO
+          json_txt <- readLines(paste0("C:/Users/hbaronfr/Desktop/CONEXION/",
+                                       "tweets_candi.json"), warn=FALSE)
+          
+          latitudes <- c(json_candidatos$place_lat)
+          longitudes <- c(json_candidatos$place_lon)
+          latitudes <- latitudes[latitudes!= "NaN"]
+          longitudes <- longitudes[longitudes!= "NaN"]
+          
+          # Create a reactive leaflet map
+          mapTweets <- reactive({
+            map = leaflet() %>% addTiles() %>%
+              addMarkers(c(longitudes), c(latitudes), popup = "test") %>%
+              setView(input$long, input$lat, zoom = 11)
+          })
+          
+          
+          output$myMap = renderLeaflet(mapTweets())
+          
+          # -------------------------------
+          # Pre-procesamiento de los datos 
+          # -------------------------------
+          # Elimina retweets
+          unique(texto)
+          limpia_texto = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", "", texto)
+          # Elimina puntuacion
+          limpia_texto = gsub("[[:punct:]]", "", limpia_texto)
+          # Elimina numeros
+          limpia_texto = gsub("[[:digit:]]", "", limpia_texto)
+          # Elimina URLs
+          limpia_texto = gsub("http\\w+", "", limpia_texto)
+          limpia_texto = gsub("http[^[:blank:]]+", "", limpia_texto)
+          # Elimina a las personas
+          limpia_texto = gsub("@\\w+", "", limpia_texto)
+          # Elimina espacios innecesarios
+          limpia_texto = gsub("[^[:alnum:]]", " ", limpia_texto)
+          limpia_texto = gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", limpia_texto, perl=TRUE)
+          # Elimina emojis o caracteres especiales
+          limpia_texto = gsub('<.*>', '', enc2native(limpia_texto))
+          # Convierte mayusculas a minusculas
+          limpia_texto = tolower(limpia_texto)
+          
+          # Elimina palabras vacias (Stopwords)
+          limpia_texto <- removeWords(limpia_texto, words = stopwords("spanish"))
+          # Aplicacion de Stemming: Principalmente recorta las palabras a su raiz
+          limpia_texto <- stemDocument (limpia_texto, language = "spanish") 
+          #head( limpia_texto, n = input$cantidadTweets )
+          
+          # ---------------------------------------------
+          # Clasificacion del sentimiento
+          # ---------------------------------------------
+          
+          #------------------------------------
+          #Clasificador Bayesiano Jose Figueroa
+          #------------------------------------
+          # instalacion de funciones necesarias para la  clasificacion de la polaridad
+          # de la autoria de Jose Cardona Figueroa que implementa un diccionario de 
+          # palabras en español para clasificacion segun el sentimiento. Estos archivos
+          # se han puesto enla ruta de directorio de trabajo en rstudio.
+          source('classify_polarity1.R') 
+          source('create_matrix1.R')
+          # Funcion de clasificacion del sentimiento
+          clasificacion= classify_polarity(limpia_texto, algorithm="bayes", minWordLength = 1)
+          
+          # Seleccionamos solo la columna 4, que indica la polaridad
+          polarity = clasificacion[,4]
+          
+          frecuencia_sentimientos <- table(polarity)
+          parametros_barplot <-c(unique(polarity))
+          cantidadTweets <-1:length(limpia_texto)
+          
+          output$histograma <- renderPlot({
+            barplot(as.matrix(frecuencia_sentimientos),
+                    beside=TRUE,
+                    horiz = F,
+                    col=c("darkblue","red"),
+                    names.arg=parametros_barplot, 
+                    width = 0.2,
+                    ylab = "Frecuencia de sentimientos",
+                    main="Sentimientos de tweets") 
+          })
+          
+          
+          result = as.matrix(cbind(cantidadTweets, limpia_texto,polarity)) 
+          
+          data <- result
+        }
+      )
       
-      #IMPRIMIR MARCADORES SEGÚN EL JSON GENERADO
-      json_txt <- readLines(paste0("D:/Universidad/Diplomado/Rstudio/",
-                                   "tweets_candi.json"), warn=FALSE)
-      
-      latitudes <- c(json_candidatos$place_lat)
-      longitudes <- c(json_candidatos$place_lon)
-      latitudes <- latitudes[latitudes!= "NaN"]
-      longitudes <- longitudes[longitudes!= "NaN"]
-      
-      # Create a reactive leaflet map
-      mapTweets <- reactive({
-        map = leaflet() %>% addTiles() %>%
-          addMarkers(c(longitudes), c(latitudes), popup = "test") %>%
-          setView(input$long, input$lat, zoom = 11)
+      output$twwts<- renderText({
+        paste("Consolidado de Tweets para ",input$candidato)
       })
       
-      
-      output$myMap = renderLeaflet(mapTweets())
+      output$encabezado<- renderText({
+        paste("Ubicacion de Tweets para ",input$candidato)
+      })
     }) 
       
     
-    # Create a reactive table 
-    output$table <- DT::renderDataTable(
-      colnames = c('Registro','Tweet',"Sentimiento"), 
-      options = list(pageLength = 10),
-      {
-        # Carga los tweets en fomato .JSON a un dataset de Rstudio
-        json_candidatos<- parseTweets(tweets='tweets_candi.json', simplify = FALSE)
-        texto=json_candidatos$text
-        
-        # -------------------------------
-        # Pre-procesamiento de los datos 
-        # -------------------------------
-        # Elimina retweets
-        unique(texto)
-        limpia_texto = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", "", texto)
-        # Elimina puntuacion
-        limpia_texto = gsub("[[:punct:]]", "", limpia_texto)
-        # Elimina numeros
-        limpia_texto = gsub("[[:digit:]]", "", limpia_texto)
-        # Elimina URLs
-        limpia_texto = gsub("http\\w+", "", limpia_texto)
-        limpia_texto = gsub("http[^[:blank:]]+", "", limpia_texto)
-        # Elimina a las personas
-        limpia_texto = gsub("@\\w+", "", limpia_texto)
-        # Elimina espacios innecesarios
-        limpia_texto = gsub("[^[:alnum:]]", " ", limpia_texto)
-        limpia_texto = gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", limpia_texto, perl=TRUE)
-        # Elimina emojis o caracteres especiales
-        limpia_texto = gsub('<.*>', '', enc2native(limpia_texto))
-        # Convierte mayusculas a minusculas
-        limpia_texto = tolower(limpia_texto)
-        
-        # Elimina palabras vacias (Stopwords)
-        limpia_texto <- removeWords(limpia_texto, words = stopwords("spanish"))
-        # Aplicacion de Stemming: Principalmente recorta las palabras a su raiz
-        limpia_texto <- stemDocument (limpia_texto, language = "spanish") 
-        #head( limpia_texto, n = input$cantidadTweets )
-        cantidadTweets <-1:length(limpia_texto)
-        
-        #Se validan los sentimientos del tweet (Prueba)
-        sentimiento_Pos <-sample(1:2,length(limpia_texto),replace=T)
-        sentimiento_valor <- c("Positivo","Negativo")
-        sentimientos_tweets<-1:length(limpia_texto)
-        for (posicion in 1:length(limpia_texto)){
-          sentimientos_tweets[posicion]=sentimiento_valor[sentimiento_Pos[posicion]]
-        }
-        
-        frecuencia_sentimientos <- table(sentimientos_tweets)
-        parametros_barplot <-c(unique(sentimientos_tweets))
-        
-        output$histograma <- renderPlot({
-          barplot(as.matrix(frecuencia_sentimientos),
-                  beside=TRUE,
-                  horiz = F,
-                  col=c("darkblue","red"),
-                  names.arg=parametros_barplot, 
-                  width = 0.2,
-                  ylab = "Frecuencia de sentimientos",
-                  main="Sentimientos de tweets") 
-        })
-        
-        
-        result = as.matrix(cbind(cantidadTweets, limpia_texto,sentimientos_tweets)) 
-        
-        data <- result
-      }
-    )
-    
-    output$twwts<- renderText({
-      paste("Consolidado de Tweets para ",input$candidato)
-    })
-    
-    output$encabezado<- renderText({
-      paste("Ubicacion de Tweets para ",input$candidato)
-    })
+
     
   }
 )
