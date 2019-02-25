@@ -1,0 +1,391 @@
+[1] "DOCUMENT 1"
+[1] "WORD: error CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: man CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 1.000001 RATIO: 9.99999000001e-07"
+
+[1] "DOCUMENT 2"
+[1] "WORD: ayud CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 3"
+[1] "WORD: lim CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: masacr CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: milit CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 1.500001 RATIO: 6.66666222222519e-07"
+
+[1] "DOCUMENT 4"
+[1] "WORD: agradec CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: complic CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: dictador CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: graci CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: madur CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 2.000001 NEG: 2.000001 RATIO: 1"
+
+[1] "DOCUMENT 5"
+[1] "WORD: libert CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 6"
+[1] "WORD: jueg CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: muert CAT: negative POL: weaksubj SCORE: 1"
+[1] "POS: 1e-06 NEG: 2.000001 RATIO: 4.99999750000125e-07"
+
+[1] "DOCUMENT 7"
+[1] "WORD: ayud CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: fracas CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: gust CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: tiran CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: triunf CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 1.500001 NEG: 1.000001 RATIO: 1.4999995000005"
+
+[1] "DOCUMENT 8"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 9"
+[1] "WORD: mejor CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.000001 NEG: 1e-06 RATIO: 1000001"
+
+[1] "DOCUMENT 10"
+[1] "WORD: carg CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: dej CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: mentir CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 1.500001 RATIO: 6.66666222222519e-07"
+
+[1] "DOCUMENT 11"
+[1] "WORD: falt CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: favor CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: necesit CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1.000001 RATIO: 0.5000004999995"
+
+[1] "DOCUMENT 12"
+[1] "WORD: dej CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: critic CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: fastidi CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: si CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: trabaj CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.500001 NEG: 1.500001 RATIO: 1"
+
+[1] "DOCUMENT 13"
+[1] "WORD: interes CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.000001 NEG: 1e-06 RATIO: 1000001"
+
+[1] "DOCUMENT 14"
+[1] "WORD: justici CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 15"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 16"
+[1] "WORD: mejor CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.000001 NEG: 1e-06 RATIO: 1000001"
+
+[1] "DOCUMENT 17"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 18"
+[1] "WORD: dud CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: oro CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.000001 NEG: 0.500001 RATIO: 1.999998000004"
+
+[1] "DOCUMENT 19"
+[1] "WORD: buen CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.000001 NEG: 1e-06 RATIO: 1000001"
+
+[1] "DOCUMENT 20"
+[1] "WORD: si CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: just CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 1.000001 NEG: 1e-06 RATIO: 1000001"
+
+[1] "DOCUMENT 21"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 22"
+[1] "WORD: necesit CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: firm CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 1.000001 RATIO: 9.99999000001e-07"
+
+[1] "DOCUMENT 23"
+[1] "WORD: jueg CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: muert CAT: negative POL: weaksubj SCORE: 1"
+[1] "POS: 1e-06 NEG: 2.000001 RATIO: 4.99999750000125e-07"
+
+[1] "DOCUMENT 24"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 25"
+[1] "WORD: madur CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: mism CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: odi CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: peor CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1.000001 NEG: 2.000001 RATIO: 0.500000249999875"
+
+[1] "DOCUMENT 26"
+[1] "WORD: carg CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: odi CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: defens CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: tont CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1.500001 RATIO: 0.333333777777482"
+
+[1] "DOCUMENT 27"
+[1] "WORD: mism CAT: negative POL: weaksubj SCORE: 1"
+[1] "POS: 1e-06 NEG: 1.000001 RATIO: 9.99999000001e-07"
+
+[1] "DOCUMENT 28"
+[1] "WORD: loc CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 0.500001 RATIO: 1.999996000008e-06"
+
+[1] "DOCUMENT 29"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 30"
+[1] "WORD: complic CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: madurez CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.000001 NEG: 1.000001 RATIO: 1"
+
+[1] "DOCUMENT 31"
+[1] "WORD: critic CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: trabaj CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: gener CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 1.500001 NEG: 0.500001 RATIO: 2.999996000008"
+
+[1] "DOCUMENT 32"
+[1] "WORD: justici CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 33"
+[1] "WORD: tragedi CAT: negative POL: weaksubj SCORE: 1"
+[1] "POS: 1e-06 NEG: 1.000001 RATIO: 9.99999000001e-07"
+
+[1] "DOCUMENT 34"
+[1] "WORD: loc CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: mal CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: maldit CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: pervers CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 2.000001 RATIO: 4.99999750000125e-07"
+
+[1] "DOCUMENT 35"
+[1] "WORD: emprendedor CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: esfuerz CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 2.000001 NEG: 1e-06 RATIO: 2000001"
+
+[1] "DOCUMENT 36"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 37"
+[1] "WORD: ayud CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: critic CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: fin CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: trat CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: voluntari CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 3.000001 NEG: 0.500001 RATIO: 5.99999000002"
+
+[1] "DOCUMENT 38"
+[1] "WORD: mentir CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: trabaj CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: baj CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: convenc CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: excelent CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 2.500001 NEG: 1.500001 RATIO: 1.66666622222252"
+
+[1] "DOCUMENT 39"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 40"
+[1] "WORD: dej CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: favor CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 0.500001 RATIO: 1"
+
+[1] "DOCUMENT 41"
+[1] "WORD: mentir CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 0.500001 RATIO: 1.999996000008e-06"
+
+[1] "DOCUMENT 42"
+[1] "WORD: mism CAT: negative POL: weaksubj SCORE: 1"
+[1] "POS: 1e-06 NEG: 1.000001 RATIO: 9.99999000001e-07"
+
+[1] "DOCUMENT 43"
+[1] "WORD: madur CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.000001 NEG: 1e-06 RATIO: 1000001"
+
+[1] "DOCUMENT 44"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 45"
+[1] "WORD: madur CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: tiran CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: afect CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: amig CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: gan CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: opin CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: verd CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 4.000001 NEG: 0.500001 RATIO: 7.999986000028"
+
+[1] "DOCUMENT 46"
+[1] "WORD: graci CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: buen CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.500001 NEG: 1e-06 RATIO: 1500001"
+
+[1] "DOCUMENT 47"
+[1] "WORD: mentir CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: inund CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 1.000001 RATIO: 9.99999000001e-07"
+
+[1] "DOCUMENT 48"
+[1] "WORD: list CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 49"
+[1] "WORD: logr CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: mit CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 0.500001 RATIO: 1"
+
+[1] "DOCUMENT 50"
+[1] "WORD: dictador CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: madur CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: favor CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 1.500001 NEG: 1.000001 RATIO: 1.4999995000005"
+
+[1] "DOCUMENT 51"
+[1] "WORD: basur CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: demuestr CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 0.500001 RATIO: 1"
+
+[1] "DOCUMENT 52"
+[1] "WORD: muert CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: olvid CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 1.500001 RATIO: 6.66666222222519e-07"
+
+[1] "DOCUMENT 53"
+[1] "WORD: ayud CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: desplaz CAT: negative POL: weaksubj SCORE: 1"
+[1] "POS: 0.500001 NEG: 1.000001 RATIO: 0.5000004999995"
+
+[1] "DOCUMENT 54"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 55"
+[1] "WORD: derech CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 1.000001 NEG: 1e-06 RATIO: 1000001"
+
+[1] "DOCUMENT 56"
+[1] "WORD: ayud CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 57"
+[1] "WORD: si CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 58"
+[1] "WORD: ayud CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 59"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 60"
+[1] "WORD: mal CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: leal CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: seri CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1.000001 NEG: 1.000001 RATIO: 1"
+
+[1] "DOCUMENT 61"
+[1] "WORD: man CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: dej CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: odi CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: irrespons CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: transmit CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 2.000001 RATIO: 0.250000374999812"
+
+[1] "DOCUMENT 62"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 63"
+[1] "WORD: dej CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 0.500001 RATIO: 1.999996000008e-06"
+
+[1] "DOCUMENT 64"
+[1] "WORD: muert CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: dej CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: si CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: atras CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: avanz CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: espaci CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 2.500001 NEG: 2.000001 RATIO: 1.24999987500006"
+
+[1] "DOCUMENT 65"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 66"
+[1] "WORD: falt CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 0.500001 RATIO: 1.999996000008e-06"
+
+[1] "DOCUMENT 67"
+[1] "WORD: justici CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 68"
+[1] "WORD: terror CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 0.500001 RATIO: 1.999996000008e-06"
+
+[1] "DOCUMENT 69"
+[1] "WORD: descans CAT: negative POL: weaksubj SCORE: 1"
+[1] "POS: 1e-06 NEG: 1.000001 RATIO: 9.99999000001e-07"
+
+[1] "DOCUMENT 70"
+[1] "WORD: si CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: tristez CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 0.500001 RATIO: 1"
+
+[1] "DOCUMENT 71"
+[1] "WORD: aprob CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: deb CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1.000001 NEG: 0.500001 RATIO: 1.999998000004"
+
+[1] "DOCUMENT 72"
+[1] "WORD: justici CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 73"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 74"
+[1] "WORD: gust CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 75"
+[1] "WORD: llor CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 0.500001 RATIO: 1.999996000008e-06"
+
+[1] "DOCUMENT 76"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "DOCUMENT 77"
+[1] "WORD: trist CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "POS: 1e-06 NEG: 0.500001 RATIO: 1.999996000008e-06"
+
+[1] "DOCUMENT 78"
+[1] "WORD: si CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 79"
+[1] "WORD: falt CAT: negative POL: strongsubj SCORE: 0.5"
+[1] "WORD: si CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "WORD: trabaj CAT: positive POL: weaksubj SCORE: 1"
+[1] "WORD: corr CAT: negative POL: weaksubj SCORE: 1"
+[1] "WORD: inocent CAT: positive POL: weaksubj SCORE: 1"
+[1] "POS: 2.500001 NEG: 1.500001 RATIO: 1.66666622222252"
+
+[1] "DOCUMENT 80"
+[1] "WORD: fin CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 81"
+[1] "WORD: demuestr CAT: positive POL: strongsubj SCORE: 0.5"
+[1] "POS: 0.500001 NEG: 1e-06 RATIO: 500001"
+
+[1] "DOCUMENT 82"
+[1] "POS: 1e-06 NEG: 1e-06 RATIO: 1"
+
+[1] "Positivos:  33 Negativos:  25 Negativos:  24"
+
