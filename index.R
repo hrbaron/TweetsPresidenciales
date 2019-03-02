@@ -50,6 +50,25 @@ candidatos <-read.csv("candidatos_presidente.csv",sep = ",",
 dfCandidatos <-data.frame(candidatos)
 candidatosPresi <-unique(dfCandidatos$Nombre)
 candidatosPresi <-candidatosPresi[order(candidatosPresi,decreasing=F)]
+
+#Inicia csv para calculo de tweets para 3 candidatos
+candidatos <-read.csv("plantillaCandidatos.csv",sep = ",",
+                      stringsAsFactors = F)
+
+analisis <-read.csv("analisis.csv",sep = ";",
+                    stringsAsFactors = F)
+#Se crea el dataFrame
+dfCandidatos <-data.frame(candidatos)
+dfanalisis <-data.frame(analisis)
+
+nombreCandidato <-as.factor(dfCandidatos$Nombre)
+tipoTweet <-as.factor(dfCandidatos$tipo)
+matrizBarplot <-table(tipoTweet,nombreCandidato)
+for(posicion in 1:6)
+{
+  matrizBarplot[posicion] <-dfanalisis$X.7[posicion]
+}
+
 shinyApp(
   ui <- pageWithSidebar(
     #Titulo de la App
@@ -69,7 +88,7 @@ shinyApp(
       textInput("long", label = "Longitud:", value = -74.29),
       
       chooseSliderSkin("Modern"),
-      sliderInput("tiempoGeneracion", "Tiempo procesamiento (Segundos)",
+      sliderInput("tiempoGeneracion", "Tiempo de generacion de Tweets (Segundos)",
                   min = 10, max =3000, value = 30)
     ),     
     
@@ -82,7 +101,10 @@ shinyApp(
                   tabPanel("Tabla", h3(textOutput("twwts")),
                            DT::dataTableOutput('table')),
                   tabPanel("Grafica Bayes", plotOutput("histograma")),
-                  tabPanel("Grafica SVM", plotOutput("histogramaCaret"))
+                  tabPanel("Grafica SVM", plotOutput("histogramaCaret")),
+                  tabPanel("Consolidado de historico de candidatos", 
+                           plotOutput("barPlotValores"),
+                           plotOutput("barPlotPorcentaje"))
       )
       
       #Salida uno ---> Texto
@@ -326,6 +348,47 @@ shinyApp(
                     width = 0.2,
                     ylab = "Frecuencia de sentimientos Caret",
                     main="Sentimientos SVM") 
+          })
+          
+          output$barPlotValores <- renderPlot({
+            bp <-barplot(
+              matrizBarplot,
+              beside = T,
+              legend.text = T,
+              main="Historico por cantidad",
+              col = c(4,2),
+              ylab = "Cantidad de Tweets",
+              ylim=c(0,62100)
+            )
+            text(
+              bp, matrizBarplot+3, 
+              round(matrizBarplot, 1), 
+              cex=1, pos=3,
+              col = "black",
+              font=2
+            )
+            box()
+          })
+          
+          output$barPlotPorcentaje <- renderPlot({
+            matrizBarplot <- scale(matrizBarplot, FALSE, colSums(matrizBarplot)) * 100
+            bp <-barplot(
+              matrizBarplot,
+              beside = T,
+              legend.text = T,
+              main="Historico por porcentaje",
+              col = c(4,2),
+              ylab = "Porcentaje",
+              ylim=c(0,100)
+            )
+            text(
+              bp, matrizBarplot+3, 
+              paste0(round(matrizBarplot, 1), "%"), 
+              cex=1, pos=3,
+              col = "black",
+              font=2
+            )
+            box()
           })
           
           result = as.matrix(cbind(texto,sentimientosPolar,sentimientosPredict)) 
