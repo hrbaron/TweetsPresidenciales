@@ -1,0 +1,62 @@
+;Numero de tweets totales ;;;;62270;100%;;;;
+;;;;;;Porcentajes;;;Positivo - petro;63431
+Gustavo Petro;Usuarios a favor de Gustavo Petro;;;;22427;57%;;;Positivo - Duque;21103
+;Usuarios en contra de Gustavo Petro;;;;16447;43%;;;Positivo - Fajardo;14216
+Sergio Fajardo;Usuarios a favor de Sergio Fjardo;;;;14216;76%;;;Negativo - Petro;32968
+;Usuarios en contra de sergio fajardo;;;;4480;24%;;;Negativo - Duque;7946
+Ivan Duque;Usuarios a favor de Ivan Duque;;;;3514;74,80%;;;Negativo - Fajardo;4480
+;Usuarios en Contra de Ivan Duque;;;;1186;25,20%;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;SENTIMENT ANALYTICS SEGUNDA VUELTA;;;;
+;Numero de tweets totales ;;;;81874;100%;;;;144144
+Gustavo Petro;Usuarios a favor de Gustavo Petro;;;;41004;71%;;;;98750
+;Usuarios en contra de Gustavo Petro;;;;16521;29%;;;;45394
+Ivan Duque;Usuarios a favor de Ivan Duque;;;;17589;72,20%;;;;
+;Usuarios en Contra de Ivan Duque;;;;6760;27,70%;;;;
+;;;;;;;;;;
+;;;      PRIMERA VUELTA;;;;;;;
+;;;;Analisis Gustavo Petro;;;;;;
+;;Categorias de polaridad;Positivo;22427;;;;;;
+;;;Negtivo;16447;;;;;;
+;;;;;;;;;;
+;;;;Analisis Sergio Fajardo;;;;;;
+;;;Positivo;14216;;;;;;
+;;;Negtivo;4480;;;;;;
+;;;;;;;;;;
+;;;;Ananlisis Ivan Duque;;;;;;
+;;;Positivo;3514;;;;;;
+;;;Negtivo;1186;;;;;;
+;;;;;;;;;;
+;;;         SEGUNDA VUELTA;;;;;;;
+;;;;;;;;;;
+;;;;Analisis Gustavo Petro;;;;;;
+;;;Positivo;41004;;;;;;
+;;;Negtivo;16521;;;;;;
+;;;;;;;;;;
+;;;;Ananlisis Ivan Duque;;;;;;
+;;;Positivo;17589;;;;;;
+;;;Negtivo;6760;;;;;;
+;;;;;;;;;;
+;;;;PRIMERA VUELTA;;;;;;
+;;;;;;;;;;
+;;;;Positivo - petro;57%;;;;;
+;;;;Negativo - Petro;43%;;;;;
+;;;;;;;;;;
+;;;;Positivo - Fajardo;76%;;;;;
+;;;;Negativo - Fajardo;24%;;;;;
+;;;;;;;;;;
+;;;;Positivo - Duque;74,80%;;;;;
+;;;;Negativo - Duque;25,20%;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;Positivo - petro;71%;;;;;
+;;;;Negativo - Petro;29%;;;;;
+;;;;;;;;;;
+;;;;Positivo - Duque;72,20%;;;;;
+;;;;Negativo - Duque;27,70%;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
+;;;;;;;;;;
