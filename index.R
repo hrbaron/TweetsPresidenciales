@@ -52,17 +52,17 @@ candidatosPresi <-unique(dfCandidatos$Nombre)
 candidatosPresi <-candidatosPresi[order(candidatosPresi,decreasing=F)]
 
 #Inicia csv para calculo de tweets para 3 candidatos
-candidatos <-read.csv("plantillaCandidatos.csv",sep = ",",
+candidatosPlantilla <-read.csv("plantillaCandidatos.csv",sep = ",",
                       stringsAsFactors = F)
 
 analisis <-read.csv("analisis.csv",sep = ";",
                     stringsAsFactors = F)
 #Se crea el dataFrame
-dfCandidatos <-data.frame(candidatos)
+dfCandidatosAnalisis <-data.frame(candidatosPlantilla)
 dfanalisis <-data.frame(analisis)
 
-nombreCandidato <-as.factor(dfCandidatos$Nombre)
-tipoTweet <-as.factor(dfCandidatos$tipo)
+nombreCandidato <-as.factor(dfCandidatosAnalisis$Nombre)
+tipoTweet <-as.factor(dfCandidatosAnalisis$tipo)
 matrizBarplot <-table(tipoTweet,nombreCandidato)
 for(posicion in 1:6)
 {
@@ -89,7 +89,7 @@ shinyApp(
       
       chooseSliderSkin("Modern"),
       sliderInput("tiempoGeneracion", "Tiempo de generacion de Tweets (Segundos)",
-                  min = 10, max =3000, value = 30)
+                  min = 10, max =300, value = 30)
     ),     
     
     #Crear mainPanel que visualiza resultados
@@ -154,11 +154,13 @@ shinyApp(
         {
           usuario_twitter <-paste("@",
                                   dfCandidatos$Usuario_twitter[dfCandidatos$Nombre ==input$candidato])
+          
           usuario_twitter <-gsub(" ", "", usuario_twitter)
           cat(usuario_twitter)
+          
           if (file.exists("tweets_candidatos.json")) 
           {
-            cat("eliminar archivo json")
+            #cat("eliminar archivo json")
             file.remove("tweets_candidatos.json")
           }
           filterStream(file.name="tweets_candidatos.json",
@@ -243,8 +245,8 @@ shinyApp(
                                       sentimientosPolar=="negative",
                                       "Negativo")
           sentimientosPolar <-replace(sentimientosPolar, 
-                                        sentimientosPolar=="positive",
-                                        "Positivo")
+                                      sentimientosPolar=="positive",
+                                      "Positivo")
           frecuencia_sentimientos <- table(sentimientosPolar)
           parametros_barplot <-c(unique(sentimientosPolar))
           
@@ -329,9 +331,16 @@ shinyApp(
           # Muestra un resumen del clasificador para observar como esta el modelo, es decir una descripcion del modelo
           summary(SVM)
           # comportamiento del modelo haciendo predicciones, con los nuevos datos
-          predictSVM<-predict(SVM, newdata = textoSparse)
-          
-          sentimientosPredict <-c(predictSVM)
+          predictSVM <-NULL
+          if(!is.null(SVM))
+          {
+              predictSVM<-predict(SVM, newdata = textoSparse)
+          }
+          sentimientosPredict <- vector()
+          if(!is.null(predictSVM))
+          {
+            sentimientosPredict <-c(predictSVM)
+          }
           sentimientosPredict <-replace(sentimientosPredict, 
                                         sentimientosPredict==1, "Negativo")
           sentimientosPredict <-replace(sentimientosPredict, 
@@ -405,9 +414,6 @@ shinyApp(
         paste("Ubicacion de Tweets para ",input$candidato)
       })
     }) 
-    
-    
-    
     
   }
 )
