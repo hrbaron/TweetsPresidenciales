@@ -102,7 +102,7 @@ shinyApp(
                            DT::dataTableOutput('table')),
                   tabPanel("Grafica Bayes", plotOutput("histograma")),
                   tabPanel("Grafica SVM", plotOutput("histogramaCaret")),
-                  tabPanel("Consolidado de historico de candidatos", 
+                  tabPanel("Consolidado  Historico de Candidatos", 
                            plotOutput("barPlotValores"),
                            plotOutput("barPlotPorcentaje"))
       )
